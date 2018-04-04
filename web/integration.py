@@ -6,13 +6,15 @@ class IntergrationTest(unittest.TestCase):
 
     def test_right_expression(self):
         expression = "1 + 1"
-        r = requests.post('hhttp://127.0.0.1:5000', data = {'expression':expression})
+        r = requests.post('http://web:5000', data = {'expression':expression})
         inserted = Expression.query.filter(text=expression).first()
         self.assertEqual(inserted.text, expression)
 
     def test_wrong_expression(self):
         expression = "12 ++ 2"
-        r = requests.post('hhttp://127.0.0.1:5000', data = {'expression':expression})
+        r = requests.post('http://web:5000', data = {'expression':expression})
         inserted = Expression.query.filter(text=expression).first()
         self.assertEqual(inserted, None)
 
+if __name__ == '__main__':
+    unittest.main()
